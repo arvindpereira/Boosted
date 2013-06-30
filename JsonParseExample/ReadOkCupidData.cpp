@@ -1,5 +1,5 @@
 /*
- * ProcessOkCupid.cpp
+ * ReadOkCupidData.cpp
  *
  *  Created on: Jun 29, 2013
  *      Author: arvind
@@ -163,7 +163,7 @@ vector<Profile> read_profiles ( string file_name ) {
 
 
 int main() {
-	string file_name = string("okcupid-malformed.json");
+	string file_name = string("okcupid-input.json");
 
 	vector<Profile> allProfiles = read_profiles( file_name );
 
