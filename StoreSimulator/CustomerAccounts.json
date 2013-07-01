@@ -1,0 +1,20 @@
+{
+"creditCards":
+[
+	{ "id":1, "cardNumber": "1234-5678-9012-3123", "creditLimit": 400.0, "expiryDate": "5/2013", "name": "John Smith" },
+{ "id":2, "cardNumber": "2341-3455-9012-8756", "creditLimit": 1000.0, "expiryDate": "8/2017", "name": "Diana Dash" },
+{ "id":3, "cardNumber": "1756-5678-9876-9628", "creditLimit": 800.0, "expiryDate": "8/2013", "name": "Jane White" },
+{ "id":4, "cardNumber": "1000-9789-9012-2345", "creditLimit": 2000.0, "expiryDate": "6/2020", "name": "Joanne Curry" },
+{ "id":5, "cardNumber": "5555-5678-2346-2000", "creditLimit": 1500.0, "expiryDate": "5/2015", "name": "Jenny Brown" },
+{ "id":6, "cardNumber": "2386-1892-1987-4638", "creditLimit": 600.0, "expiryDate": "3/2018", "name": "Amy Smith" },
+{ "id":7, "cardNumber": "4444-5678-9012-1236", "creditLimit": 1000.0, "expiryDate": "10/2013", "name": "Arnold Perry" },
+{ "id":8, "cardNumber": "1867-2356-9012-3123", "creditLimit": 1500.0, "expiryDate": "5/2014", "name": "Jeff Portman" },
+{ "id":9, "cardNumber": "2894-5678-2367-2375", "creditLimit": 2000.0, "expiryDate": "10/2018", "name": "Lee Dunham" },
+{ "id":10, "cardNumber": "1300-5678-9856-2365", "creditLimit": 500.0, "expiryDate": "6/2016", "name": "Jena Ryan" },
+{ "id":11, "cardNumber": "1827-5678-9012-2346", "creditLimit": 400.0, "expiryDate": "8/2019", "name": "Ryan Steinmann" },
+{ "id":12, "cardNumber": "1427-5678-2478-3457", "creditLimit": 2000.0, "expiryDate": "10/2015", "name": "Dylan Curry" },
+{ "id":13, "cardNumber": "2897-1390-2745-2756", "creditLimit": 900.0, "expiryDate": "5/2016", "name": "Anne Jane" },
+{ "id":14, "cardNumber": "2357-1978-9012-2800", "creditLimit": 2500.0, "expiryDate": "8/2017", "name": "Mary Jane" },
+{ "id":15, "cardNumber": "2901-2756-2456-3000", "creditLimit": 700.0, "expiryDate": "6/2020", "name": "Jack Brown" }
+]
+}
