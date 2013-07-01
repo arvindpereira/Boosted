@@ -44,7 +44,10 @@ public:
 	{}
 
 	friend void swap( Item &a, Item &b ) {
-		std::swap( a, b );
+		std::swap( a.itemId, b.itemId );
+		std::swap( a.name, b.name );
+		std::swap( a.price, b.price );
+		std::swap( a.categoryId, b.categoryId );
 	}
 
 	Item( const Item& item )

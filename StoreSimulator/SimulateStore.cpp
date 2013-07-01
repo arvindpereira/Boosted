@@ -30,15 +30,18 @@ int main()
 
 	cout<<"\n\n\n\nStore Opened. Waiting for Customers.\n";
 	vector<Customer> customers;
-	int numCustomers = 5;
+	int numCustomers = 12;
 	for(int i=1;i<=numCustomers;i++) {
 		Customer c(myCustomers[i].getId(), myCustomers[i].getCardInfo(), &storeInv);
 		customers.push_back(c);
-		customers[i-1].start();
 	}
 
-	for( int i=1;i<=numCustomers;i++ ) {
-		customers[i-1].join();
+	for( int i=0; i<customers.size();i++ ) {
+		customers[i].start();
+	}
+
+	for( int i=0;i<customers.size();i++ ) {
+		customers[i].join();
 	}
 
 

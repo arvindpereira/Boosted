@@ -28,6 +28,18 @@ struct CardInfo {
 	string name;
 	double creditLimit;
 	string expiryDate;
+
+	friend void swap( CardInfo &a, CardInfo &b ) {
+		std::swap( a.cardNumber, b.cardNumber );
+		std::swap( a.name, b.name );
+		std::swap( a.creditLimit, b.creditLimit );
+		std::swap( a.expiryDate, b.expiryDate );
+	}
+
+	CardInfo& operator=(CardInfo &other) {
+		swap( *this, other );
+		return *this;
+	}
 };
 
 
@@ -107,8 +119,8 @@ public:
 
 	void processQueue( int N ) {
 		int totalUniqueThings = rand()%20; // The Customer will try to buy upto 20 unique types of items
+		cout<<setprecision(3)<<myTimer.timeSinceStart()<<" Customer "<<id<<"Started Shopping.";
 		for( int j=0; j< totalUniqueThings; j++ ) {
-			cout<<setprecision(3)<<myTimer.timeSinceStart()<<" Customer "<<id<<"Started Shopping.";
 			int timeToNextItem = rand()%5; // Walk around for some random amount of time.
 			int pickItemId = rand()%50; // Assuming we know the number of items.
 			int itemQty = rand()%5; // Purchase a random amount of items.
@@ -125,7 +137,7 @@ public:
 			boost::posix_time::seconds walkTime( timeToNextItem );
 			boost::this_thread::sleep(walkTime);
 		}
-		cout<<setprecision(3)<<myTimer.timeSinceStart()<<"Customer"<<id<<" is done shopping."<<endl;
+		cout<<setprecision(3)<<myTimer.timeSinceStart()<<"Customer"<<id<<" is done shopping. Total Cost="<<getTotal()<<endl;
 	}
 
 	friend ostream& operator<<( ostream& os, Customer &cust );

@@ -129,6 +129,7 @@ ostream& toJson( ostream &os, Inventory &inv )
 {
 	boost::lock_guard<boost::mutex> guard( inv.inventoryMutex() );
 	Value jsonData;
+	// To be implemented!!!
 }
 
 ostream& operator <<( ostream &os, Inventory &inv )

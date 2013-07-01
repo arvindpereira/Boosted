@@ -81,7 +81,7 @@ istream& operator>>( istream& is, Customers& customers )
 		}
 	}
 	else throw invalid_argument("Expected creditCards as object type.");
-
+	return is;
 }
 
 
