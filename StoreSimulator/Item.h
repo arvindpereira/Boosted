@@ -21,6 +21,7 @@
 #include <iostream>
 #include <string>
 #include <utility>
+#include "SharedLocks.h"
 
 using namespace boost::gregorian;
 using namespace boost;
@@ -72,6 +73,7 @@ public:
     void setName( string name );
 
     friend ostream &operator<<( ostream & os, Item &item )  {
+    	boost::lock_guard<boost::mutex> guardCout( ::getCoutMutex() );
     	os<<"itemId:"<<item.getItemId()<<", name: "<<item.getName()<<", price: "<<
     					item.getPrice()<<", categoryId: "<<item.getCategoryId()<<'\n';
     	return os;

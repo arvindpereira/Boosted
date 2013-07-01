@@ -13,11 +13,17 @@
 #include "Customers.h"
 #include "Customer.h"
 #include "Store.h"
+#include "TimeTools.h"
 
 using namespace std;
+using namespace ArvindsTools;
+
+boost::mutex cout_mutex;
+
 
 int main()
 {
+	TimeTools myTimer;
 	cout<<"This is the store simulator.\n";
 
 	Inventory storeInv("ItemList.json");
@@ -30,9 +36,9 @@ int main()
 
 	cout<<"\n\n\n\nStore Opened. Waiting for Customers.\n";
 	vector<Customer> customers;
-	int numCustomers = 12;
+	int numCustomers = 20000;
 	for(int i=1;i<=numCustomers;i++) {
-		Customer c(myCustomers[i].getId(), myCustomers[i].getCardInfo(), &storeInv);
+		Customer c(i, myCustomers[i].getCardInfo(), &storeInv);
 		customers.push_back(c);
 	}
 
@@ -46,7 +52,9 @@ int main()
 
 
 	cout<<"Main thread waiting for customer to finish."<<endl;
-	cout<<"Main done"<<endl;
+	cout<<"Closing for the day"<<endl;
+	cout<<storeInv;
+	cout<<"Done in : "<<myTimer.timeSinceStart()<<" seconds."<<endl;
 
 	return 0;
 }

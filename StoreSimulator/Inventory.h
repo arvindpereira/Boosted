@@ -24,6 +24,7 @@
 
 #include "Constants.h"
 #include "Item.h"
+#include "SharedLocks.h"
 
 using namespace std;
 using namespace json_spirit;
@@ -134,11 +135,12 @@ ostream& toJson( ostream &os, Inventory &inv )
 
 ostream& operator <<( ostream &os, Inventory &inv )
 {
+	boost::lock_guard<boost::mutex> guardCout( ::getCoutMutex() );
 	boost::lock_guard<boost::mutex> guard( inv.inventoryMutex() );
 	os<<"\nItems are:\n";
 	for( map<int,Item>::iterator it = inv.items.begin(); it!=inv.items.end(); it++ ) {
 		os<<"itemId:"<<it->first<<", name: "<<it->second.getName()<<", price: "<<
-				it->second.getPrice()<<", categoryId: "<<it->second.getCategoryId()<<
+				it->second.getPrice()<<", categoryId: "<<it->second.getCategoryId()<<", quantity: "<<
 				inv.getQuantity(it->second.getItemId())<<'\n';
 	}
 	return os;

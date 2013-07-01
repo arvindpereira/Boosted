@@ -16,8 +16,10 @@
 #include <boost/date_time.hpp>
 #include <json_spirit.h>
 #include <iomanip>
+#include <sstream>
 #include "Constants.h"
 #include "TimeTools.h"
+#include "SharedLocks.h"
 
 using namespace boost;
 using namespace json_spirit;
@@ -117,27 +119,37 @@ public:
 		return creditCard;
 	}
 
+	void outputToCout( string str ) {
+		boost::lock_guard<boost::mutex> guardCout( ::getCoutMutex() );
+		cout<<str<<endl;
+	}
+
 	void processQueue( int N ) {
+		ostringstream sout;
+		int numItemsToPurchase = 10;
 		int totalUniqueThings = rand()%20; // The Customer will try to buy upto 20 unique types of items
-		cout<<setprecision(3)<<myTimer.timeSinceStart()<<" Customer "<<id<<"Started Shopping.";
+		sout<<setprecision(6)<<myTimer.timeSinceStart()<<" Customer "<<id<<"Started Shopping."<<'\n';
+		int numOfItems = itemInfo.size();
 		for( int j=0; j< totalUniqueThings; j++ ) {
 			int timeToNextItem = rand()%5; // Walk around for some random amount of time.
-			int pickItemId = rand()%50; // Assuming we know the number of items.
-			int itemQty = rand()%5; // Purchase a random amount of items.
+			int pickItemId = rand()%(numOfItems+1); // Assuming we know the number of items.
+			int itemQty = rand()%(numItemsToPurchase+1); // Purchase a random amount of items.
 			int qtyInCart = shelves->removeAnItem( pickItemId, itemQty );
-			if( qtyInCart > 0 ) {
-				cout<<setprecision(3)<<myTimer.timeSinceStart()<<" Customer "<<id<<" picked "<<qtyInCart<<" of "<< itemInfo[ pickItemId ].getName();
+			if( qtyInCart >= 0 ) {
+				sout<<setprecision(6)<<myTimer.timeSinceStart()<<" Customer "<<id<<" picked "<<qtyInCart<<" of "<< itemInfo[ pickItemId ].getName()<<'\n';
 				for( int i=0; i<qtyInCart; i++ ) {
 					shoppingCart.push_back( itemInfo[pickItemId] );
 				}
 			} else {
-				cout<<setprecision(3)<<myTimer.timeSinceStart()<<" Customer "<<id<<" did not find item "<<pickItemId<<"\n";
+				sout<<setprecision(6)<<myTimer.timeSinceStart()<<" Customer "<<id<<" did not find item "<<pickItemId<<"\n";
 			}
-			cout<<". Total Price of Cart:"<<getTotal()<<'\n';
+			sout<<". Total Price of Cart:"<<getTotal()<<'\n';
 			boost::posix_time::seconds walkTime( timeToNextItem );
-			boost::this_thread::sleep(walkTime);
+			//boost::this_thread::sleep(walkTime);
 		}
-		cout<<setprecision(3)<<myTimer.timeSinceStart()<<"Customer"<<id<<" is done shopping. Total Cost="<<getTotal()<<endl;
+		sout<<setprecision(6)<<myTimer.timeSinceStart()<<" Customer "<<id<<" is done shopping. Total Cost="<<getTotal()<<endl;
+		outputToCout( sout.str() );
+		sout.clear();
 	}
 
 	friend ostream& operator<<( ostream& os, Customer &cust );
@@ -145,6 +157,7 @@ public:
 };
 
 ostream& operator<<( ostream& os, Customer &cust ) {
+	boost::lock_guard<boost::mutex> guard( getCoutMutex() );
 	os<<"Customer :"<<cust.id;
 	os<<" Name: "<<cust.creditCard.name<<", Cred.Lim: "<<cust.creditCard.creditLimit<<
 			", Exp.Date: "<<cust.creditCard.expiryDate<<", Card.Num: "<<cust.creditCard.cardNumber<<'\n';
