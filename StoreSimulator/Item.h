@@ -22,6 +22,7 @@
 #include <string>
 #include <utility>
 #include "SharedLocks.h"
+#include "Constants.h"
 
 using namespace boost::gregorian;
 using namespace boost;

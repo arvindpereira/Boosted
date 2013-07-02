@@ -14,7 +14,6 @@
 #include <boost/thread.hpp>
 
 
-using namespace boost::this_thread;
 
 class Store
 {

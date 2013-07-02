@@ -17,32 +17,17 @@
 #include <json_spirit.h>
 #include <iomanip>
 #include <sstream>
+#include "Item.h"
+#include "Inventory.h"
 #include "Constants.h"
 #include "TimeTools.h"
 #include "SharedLocks.h"
+#include "PaymentMessage.h" // Contains CardInfo now.
 
 using namespace boost;
 using namespace json_spirit;
 using namespace ArvindsTools;
 
-struct CardInfo {
-	string cardNumber;
-	string name;
-	double creditLimit;
-	string expiryDate;
-
-	friend void swap( CardInfo &a, CardInfo &b ) {
-		std::swap( a.cardNumber, b.cardNumber );
-		std::swap( a.name, b.name );
-		std::swap( a.creditLimit, b.creditLimit );
-		std::swap( a.expiryDate, b.expiryDate );
-	}
-
-	CardInfo& operator=(CardInfo &other) {
-		swap( *this, other );
-		return *this;
-	}
-};
 
 
 /** A customer comes to the store, picks up P items and goes to the cashier to buy them.
